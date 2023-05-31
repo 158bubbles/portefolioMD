@@ -7,8 +7,10 @@ Original file is located at
     https://colab.research.google.com/drive/1gFPbLbgvceg8KNNnYjiF4rkIepkVR7wf
 """
 
-from dataset import Dataset
+import sys
+sys.path.append('.\\TPC1')
 
+from dataset import Dataset
 import numpy as np
 from scipy.stats import f_oneway
 
