@@ -1,19 +1,17 @@
 import sys
 sys.path.append('.\\TPC1')
 from dataset import Dataset
-from f_regression import f_regression
 import numpy as np
 from typing import Callable
-from sklearn.datasets import load_breast_cancer
+from f_classif import f_classif
+from sklearn.feature_selection import f_regression
 
 class SelectKBest:
-    # Select features according to the k highest scores
+#select features according to the k highest scores
 
     def __init__(self, dataset: Dataset, score_func: Callable, k: int):
-        # Initialize the SelectKBest instance
-        # dataset: Dataset object
-        # score_func: Function that returns an array of scores for each feature (scores, p_values)
-        # k: Number of top features to select
+        #score_func: function that return an array of scores for each feature (scores, p_values)
+        #k: number of top features to select
 
         if k <= 0:
             raise ValueError("Sorry, k must be > 0")
@@ -25,36 +23,33 @@ class SelectKBest:
         self.F = None
         self.p = None
 
-    def fit(self, dataset):
-        # Calculate the scores and p-values for each feature
 
-        scores, p_values = self.score_func(dataset)
-        self.F = scores
-        self.p = p_values
+    def fit(self):
+        #calculate the scores and p values
 
-    def transform(self, dataset):
-        # Transform the dataset X by selecting the top k features based on their scores
-
-        X = dataset.X
-        t = np.argsort(self.p)[:self.k]  # Indices of the top k features based on p-values
-        return X[:, t]  # Return the dataset with only the selected features
-
-    def fit_transform(self, dataset):
-        # Calculate the scores and transform the dataset by selecting the k highest scoring features
-
-        self.fit(dataset)
-        return self.transform(dataset)
+        self.F, p_values = self.score_func(self.dataset.X, self.dataset.y)
 
 
+    def transform(self):
+        #transforms the dataset X by selecting the top k features based on their scores
+        t = np.argsort(self.p)[:self.k]
+        return [self.dataset.features[i] for i in t]
 
-data = load_breast_cancer()
+    def fit_transform(self):
+        #calculates the scores and transforms the dataset by selecting the k highest scoring features
+        self.fit()
 
-dataset = Dataset(X=data.data,
-                  y=data.target,
-                  features=data.feature_names,
+        return self.transform()
+
+
+dataset = Dataset(X=np.array([[7, 2, 7],
+                              [1, 0, 6],
+                              [8, 0, 9]]),
+                  y=np.array([1, 8, 3]),
+                  features=["f1", "f2", "f3"],
                   label="y")
 
-function = SelectKBest(dataset, score_func = f_regression, k = 1)
-res = function.fit_transform(dataset)
+function = SelectKBest(dataset, score_func = f_regression, k = 2)
+res = function.fit_transform()
 
 print(res)

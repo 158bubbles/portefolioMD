@@ -6,10 +6,7 @@ from scipy.stats import f
 from sklearn.linear_model import LinearRegression
 from sklearn.datasets import load_iris
 
-def f_regression(dataset: Dataset):
-
-    X = dataset.X
-    y = dataset.y
+def f_regression(X, y):
 
     #new column of ones to X
     X = np.hstack((X, np.ones((X.shape[0], 1))))
@@ -40,7 +37,7 @@ dataset = Dataset(X=iris.data,
                   features=["f1", "f2", "f3", "f4"],
                   label="y")
 
-F_values, p_values = f_regression(dataset)
+F_values, p_values = f_regression(iris.data, iris.target)
 
 print("P_values:", p_values)
 print("F_values:", F_values)
