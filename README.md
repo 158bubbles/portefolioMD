@@ -1,9 +1,9 @@
 # Portfolio-MD
 
 ## Group Members:
-[@André Vieira](https://github.com/Persa053)
+[André Vieira](https://github.com/Persa053)
 
-[@Ana Teresa Gomes](https://github.com/158bubbles)
+[Ana Teresa Gomes](https://github.com/158bubbles)
 
 ## Algoritmos desenvolvidos:
 [Dataset](https://github.com/158bubbles/portefolioMD/tree/main/TPC1)
