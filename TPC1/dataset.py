@@ -3,7 +3,7 @@ from typing import Tuple, Sequence
 import numpy as np
 import pandas as pd
 from pydoc import locate
-from scipy import stats as stats
+from scipy import stats as st
 
 class Dataset:
     def __init__(self, X: np.ndarray = None, y: np.ndarray = None, features: Sequence[str] = None, types: Sequence[str] = None ,  label: str = None):
@@ -161,36 +161,15 @@ class Dataset:
         return self.types[self.features.index(s)]
 
 
-    def null_counter(self, s:str, o:object) -> int:
+    def null_counter(self, s:str) -> int:
 
       if (self.get_type(s) == 'object'):
         res = np.count_nonzero(self.get_column(s)== '')
       else:
-        print(self.get_type(s))
         res = np.count_nonzero(pd.isna(self.get_column(s)))
           
-      return res
-
-    
-    def null_replace(self, s:str, o:object) -> np.array:
-      res = cena.get_column(s)
-      if (self.get_type(s) == 'object'):
-        if(type(o) != str):
-          raise ValueError('Tipo de dados invalido')
-        #substituidos por 0 (depois mudar)
-        res[res == ''] = o
-      else:
-        #substituidos pela media
-        if(type(o) == str):
-          raise ValueError('Tipo de dados invalido')
-        else:  
-          res[pd.isna(res)] = o
-      return res  
-        
+      return res    
          
-
-    
-
 
     def get_mean(self) -> np.ndarray:
         """
@@ -270,7 +249,7 @@ class Dataset:
       else:  
         array = array[np.logical_not(pd.isna(array))]
 
-      return st.mode(array)[0][0]
+      return st.mode(array, keepdims=True)[0][0]
 
     def summary(self) -> pd.DataFrame:
         """

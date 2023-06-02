@@ -49,7 +49,7 @@ dataset = Dataset(X=np.array([[7, 2, 7],
                   features=["f1", "f2", "f3"],
                   label="y")
 
-function = SelectKBest(dataset, score_func = f_regression, k = 2)
+function = SelectKBest(dataset, score_func = f_regression, k = 1)
 res = function.fit_transform()
 
 print(res)

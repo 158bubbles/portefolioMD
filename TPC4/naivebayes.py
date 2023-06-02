@@ -115,4 +115,4 @@ new_data = np.array([[2, 0, 0, 0]])
 prediction = clf.predict(new_data)
 
 # print the predicted value
-print(prediction[0])
+# print(prediction[0])

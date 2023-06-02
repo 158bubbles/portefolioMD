@@ -1,5 +1,6 @@
+import sys
+sys.path.append('.\\TPC1')
 from dataset import Dataset
-
 import numpy as np
 from collections import Counter
 
@@ -267,10 +268,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 #Load the dataset and print
-data = Dataset.from_csv('/content/iris.csv', label='Species')
+data = Dataset.from_csv('TPC3\\iris.csv', label='Species')
 
 #split data into train and test
-X_train, X_test, y_train, y_test = train_test_split(data.X.transpose(), data.y, test_size = 0.2, random_state = 2023)
+X_train, X_test, y_train, y_test = train_test_split(data.X, data.y, test_size = 0.2, random_state = 2023)
 
 #decision tree model and fit method
 f = DecisionTree(max_depth=10, chosen_criterion = 'entropy')
